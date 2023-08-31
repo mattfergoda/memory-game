@@ -8,7 +8,7 @@ const COLORS = [
   "red", "blue", "green", "orange", "purple",
 ];
 
-const colors = shuffle(COLORS);
+let colors = shuffle(COLORS);
 
 let playingGame = false;
 createCards(colors);
@@ -43,8 +43,7 @@ function addStartListener() {
 function startGame() {
   let startScreen = document.getElementById('start-screen');
   startScreen.remove();
-  let game = document.getElementById('game');
-  game.style.opacity = '100%';
+  toggleOpacity();
   playingGame = true;
 }
 
@@ -58,6 +57,8 @@ function startGame() {
 function createCards(colors) {
   const gameBoard = document.getElementById("game");
 
+  let cardGrid = document.getElementById('card-grid');
+
   for (let i=0; i<colors.length; i++) {
     // missing code here ...
     let color = colors[i];
@@ -67,11 +68,10 @@ function createCards(colors) {
     card.classList.add('face-down');
     card.id = "card-" + i; // For making sure user doesn't pick the same card.
     card.addEventListener('click', handleCardClick);
-
-    let cardGrid = document.getElementById('card-grid');
+    
     cardGrid.appendChild(card);
-    gameBoard.appendChild(cardGrid);
   }
+  gameBoard.appendChild(cardGrid);
 }
 
 /** Flip a card face-up. */
@@ -141,4 +141,69 @@ function handleCardClick(evt) {
     let card2 = cardsClicked[0]; // card2 is the card previously clicked.
     processSecondCard(card1, card2);
   }
+
+  let cardsFaceUp = document.getElementsByClassName('face-up');
+  if (cardsFaceUp.length === colors.length) {
+    askPlayAgain();
+  }
+}
+
+function askPlayAgain() {
+  playingGame = false;
+  let docBody = document.getElementsByTagName("body")[0];
+
+  // Create a play again screen.
+  let playAgainScreen = document.createElement('div');
+
+  // Create the header asking the user if they want to play again.
+  let playAgainHeader = document.createElement('h1');
+  playAgainHeader.textContent = 'Play again?';
+
+  // Create the button that the user can press to play again.
+  let playAgainButton = document.createElement('button');
+  playAgainButton.textContent = "Let's do it!";
+  playAgainButton.addEventListener('click', resetGame);
+
+  // Add an id for the play again screen.
+  playAgainScreen.id = 'play-again-screen'; 
+
+  // Append the header and button to the play again screen object.
+  playAgainScreen.appendChild(playAgainHeader);
+  playAgainScreen.appendChild(playAgainButton);
+
+  // Append the play again screen to the doc body.
+  docBody.appendChild(playAgainScreen);
+
+  toggleOpacity();
+}
+
+function resetGame() {
+
+  // This helped:
+  // https://stackoverflow.com/questions/10842471/how-to-remove-all-elements-of-a-certain-class-from-the-dom
+  let cards = document.getElementsByClassName('card');
+  while(cards[0]) {
+    cards[0].parentNode.removeChild(cards[0]);
+  }
+
+  let playAgainScreen = document.getElementById('play-again-screen');
+  playAgainScreen.remove();
+  toggleOpacity();
+
+  let colors = shuffle(COLORS);
+  createCards(colors);
+  playingGame = true;
+}
+
+function toggleOpacity() {
+  let game = document.getElementById('game');
+  
+  // got help on this here:
+  // https://stackoverflow.com/questions/11365296/how-do-i-get-the-opacity-of-an-element-using-javascript
+  let opacity = window.getComputedStyle(game).getPropertyValue("opacity")
+  console.log(opacity);
+  if (opacity == 0.2) {
+    game.style.opacity = 1
+  }
+  else game.style.opacity = 0.2;
 }
