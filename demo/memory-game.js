@@ -103,9 +103,12 @@ function processSecondCard(card1, card2) {
 function handleCardClick(evt) {
   // ... you need to write this ...
 
+  // If the user clicks a face-up card, do nothing.
+  if (this.classList.contains('face-up')) return;
+
   let cardsClicked = document.getElementsByClassName("clicked");
 
-  console.log(cardsClicked.length);
+  console.log(cardsClicked.length); // Just for debugging, remove later.
 
   // This is the first card picked in a potential match.
   if (cardsClicked.length === 0) {
