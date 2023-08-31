@@ -10,7 +10,11 @@ const COLORS = [
 
 const colors = shuffle(COLORS);
 
+let playingGame = false;
 createCards(colors);
+addStartListener();
+
+
 
 
 /** Shuffle array items in-place and return shuffled array. */
@@ -29,6 +33,19 @@ function shuffle(items) {
   }
 
   return items;
+}
+
+function addStartListener() {
+  let startButton = document.getElementById('start-button');
+  startButton.addEventListener("click", startGame);
+}
+
+function startGame() {
+  let startScreen = document.getElementById('start-screen');
+  startScreen.remove();
+  let game = document.getElementById('game');
+  game.style.opacity = '100%';
+  playingGame = true;
 }
 
 /** Create card for every color in colors (each will appear twice)
@@ -102,6 +119,9 @@ function processSecondCard(card1, card2) {
 
 function handleCardClick(evt) {
   // ... you need to write this ...
+
+  // If the user hasn't hit the start button, do nothing.
+  if (!playingGame) return;
 
   // If the user clicks a face-up card, do nothing.
   if (this.classList.contains('face-up')) return;

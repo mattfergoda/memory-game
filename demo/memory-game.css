@@ -1,10 +1,22 @@
 /* you can add to or change this. */
 
-#game div {
-  /*border: 1px solid black;*/
-
+#start-screen {
+  text-align: center;
+  width: 300px;
+  height: 150px;
+  background-color: aquamarine;
+  /* This helped with fixed positioning: https://stackoverflow.com/questions/2005954/center-a-positionfixed-element */
+  position: fixed;
+  margin: auto auto;
+  top: 5%;
+  left: 0;
+  right: 0;
+  z-index: 100;
 }
 
+#game {
+  opacity: 20%;
+}
 #card-grid {
   display: grid;
   grid-template-columns: auto auto auto auto auto;
