@@ -47,7 +47,6 @@ function startGame() {
     colors = createColors(numCards);
     colors = shuffle(colors);
     createCards(colors);
-    //setUpGrid(numCards);
     updateBestScore();
     toggleOpacity();
     playingGame = true;
@@ -68,15 +67,6 @@ function createColors(numCards) {
   }
   return colors;
 }
-/*
-function setUpGrid(numCards) {
-  let numRows = Math.floor(Math.sqrt(numCards));
-  //let numRows = Math.ceil(numCards / numCols);
-  let cardGrid = document.getElementById('card-grid');
-  cardGrid.style.gridTemplateRows = `repeat(${numRows}, auto)`;
-
-}
-*/
 
 /** Create card for every color in colors (each will appear twice)
  *
@@ -277,7 +267,6 @@ function resetGame() {
   colors = createColors(numCards);
   colors = shuffle(colors);
   createCards(colors);
-  //setUpGrid(numCards);
 
   playingGame = true;
   score = 0;
