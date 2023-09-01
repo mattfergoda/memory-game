@@ -47,7 +47,8 @@ function startGame() {
     colors = createColors(numCards);
     colors = shuffle(colors);
     createCards(colors);
-    setUpGrid(numCards);
+    //setUpGrid(numCards);
+    updateBestScore();
     toggleOpacity();
     playingGame = true;
   }
@@ -60,21 +61,22 @@ function createColors(numCards) {
     let randomG = Math.random() * 255;
     let randomB = Math.random() * 255;
     
-    let randomColor = 'rgb(' + randomR + ',' + randomG + ',' + randomB + ')';
+    let randomColor = `rgb(${randomR},${randomB},${randomG})`;
     // Append the color to the array twice to get pairs.
     colors.push(randomColor);
     colors.push(randomColor);
   }
   return colors;
 }
-
+/*
 function setUpGrid(numCards) {
   let numRows = Math.floor(Math.sqrt(numCards));
   //let numRows = Math.ceil(numCards / numCols);
   let cardGrid = document.getElementById('card-grid');
-  cardGrid.style.gridTemplateRows = 'repeat(' + numRows + ', auto)';
+  cardGrid.style.gridTemplateRows = `repeat(${numRows}, auto)`;
 
 }
+*/
 
 /** Create card for every color in colors (each will appear twice)
  *
@@ -95,7 +97,7 @@ function createCards(colors) {
     card.classList.add('card');
     card.classList.add(color);
     card.classList.add('face-down');
-    card.id = "card-" + i; // For making sure user doesn't pick the same card.
+    card.id = `card-${i}`; // For making sure user doesn't pick the same card.
     card.addEventListener('click', handleCardClick);
     
     cardGrid.appendChild(card);
@@ -105,7 +107,17 @@ function createCards(colors) {
 
 function updateScoreboard(score) {
   let scoreText = document.getElementById('score');
-  scoreText.innerHTML = 'Score: ' + score;
+  scoreText.innerHTML = `Score: ${score}`;
+}
+
+function updateBestScore(){
+  // Get lowest score.
+  let lowestScore = localStorage.getItem(`lowestScore-${numCards}`);
+  // Don't show best score if there isn't one for this grid size yet.
+  if (lowestScore) {
+    let lowestScoreElement = document.getElementById('best-score');
+    lowestScoreElement.textContent = `Best Score for ${numCards} cards: ${lowestScore}`;
+  }
 }
 
 /** Flip a card face-up. */
@@ -189,7 +201,7 @@ function handleCardClick(evt) {
 
 function displayFinalScore(playAgainScreen) {
   // Get lowest score.
-  let lowestScore = localStorage.getItem("lowestScore-" + numCards);
+  let lowestScore = localStorage.getItem(`lowestScore-${numCards}`);
   // If there's no lowest score recorded, set the lowest score to Infinity.
   if (!lowestScore) lowestScore = Infinity;
 
@@ -199,12 +211,12 @@ function displayFinalScore(playAgainScreen) {
 
   // If it's a new best score, tell the user.
   if (score < lowestScore) {
-    localStorage.setItem("lowestScore-" + numCards, score);
+    localStorage.setItem(`lowestScore-${numCards}`, score);
     bestScoreMessage.textContent = `New best score for ${numCards} cards!`;
   } else {
     bestScoreMessage.textContent = '';
   }
-  endGameScore.textContent = 'Your score: ' + score;
+  endGameScore.textContent = `Your score: ${score}`;
 
   playAgainScreen.appendChild(bestScoreMessage);
   playAgainScreen.appendChild(endGameScore);
@@ -265,11 +277,12 @@ function resetGame() {
   colors = createColors(numCards);
   colors = shuffle(colors);
   createCards(colors);
-  setUpGrid(numCards);
+  //setUpGrid(numCards);
 
   playingGame = true;
   score = 0;
   updateScoreboard(score);
+  updateBestScore();
 }
 
 function toggleOpacity() {

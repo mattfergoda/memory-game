@@ -17,6 +17,12 @@
 #game {
   opacity: 20%;
 }
+
+.title {
+  font-family: 'Noto Sans', sans-serif;
+  font-family: 'Rubik Iso', cursive;
+}
+
 #card-grid {
   display: grid;
   grid-template-columns: auto auto auto auto auto;
@@ -26,6 +32,7 @@
   width: 750px;
   height: 300px;
   margin: 0 auto;
+  padding-bottom: 20px;
 }
 
 .card {
@@ -52,4 +59,11 @@
 
 #play-again-screen button {
   margin: 3% 0;
+}
+
+#score {
+  float: left;
+}
+#best-score {
+  float: right;
 }

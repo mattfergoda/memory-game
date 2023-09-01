@@ -2,23 +2,27 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8"/>
-  <title>Memory Game!</title>
+  <title>Memory Match!</title>
   <link rel="stylesheet" href="memory-game.css"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@300&family=Rubik+Iso&display=swap" rel="stylesheet">
 </head>
 <body>
 
 <div id="start-screen">
   <h3>Welcome to</h3>
-  <h1>Memory Game</h1>
+  <h1 class="title">Memory Match</h1>
   <label for="num-cards">How many cards do you want to guess? <br>It must be an even number.</label>
   <input type="text" id="num-cards"><br>
   <button id="start-button">Start</button>
 </div>
 
 <div id="game">
-  <h1>Memory Game!</h1>
+  <h1 class="title">Memory Game</h1>
   <div id="scoreboard">
     <h2 id="score">Score: 0</h2>
+    <h2 id="best-score"></h2>
   </div>
 
   <div id="card-grid">
