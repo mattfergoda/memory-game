@@ -1,9 +1,14 @@
 /* you can add to or change this. */
 
+.title {
+  font-family: 'Noto Sans', sans-serif;
+  font-family: 'Rubik Iso', cursive;
+}
+
 #start-screen {
   text-align: center;
   width: 300px;
-  height: 150px;
+  height: auto;
   background-color: aquamarine;
   /* This helped with fixed positioning: https://stackoverflow.com/questions/2005954/center-a-positionfixed-element */
   position: fixed;
@@ -18,10 +23,6 @@
   opacity: 20%;
 }
 
-.title {
-  font-family: 'Noto Sans', sans-serif;
-  font-family: 'Rubik Iso', cursive;
-}
 
 #card-grid {
   display: grid;
@@ -30,9 +31,9 @@
   justify-items: center;
   align-items: center;
   width: 750px;
-  height: 300px;
+  height: auto;
   margin: 0 auto;
-  padding-bottom: 20px;
+  padding-bottom: 5%;
 }
 
 .card {
