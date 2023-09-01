@@ -9,6 +9,7 @@ const COLORS = [
 ];
 
 let colors = shuffle(COLORS);
+let score = 0;
 
 let playingGame = false;
 createCards(colors);
@@ -74,12 +75,19 @@ function createCards(colors) {
   gameBoard.appendChild(cardGrid);
 }
 
+function updateScoreboard(score) {
+  let scoreText = document.getElementById('score');
+  scoreText.innerHTML = 'Score: ' + score;
+}
+
 /** Flip a card face-up. */
 
 function flipCard(card) {
   // ... you need to write this ...
   card.style.backgroundColor = card.classList[1];
   card.classList.toggle('face-up');
+  score++;
+  updateScoreboard(score);
 }
 
 /** Flip a card face-down. */
@@ -155,6 +163,10 @@ function askPlayAgain() {
   // Create a play again screen.
   let playAgainScreen = document.createElement('div');
 
+  // Create the header showing the user's score.
+  let endGameScore = document.createElement('h1');
+  endGameScore.textContent = 'Your score: ' + score;
+
   // Create the header asking the user if they want to play again.
   let playAgainHeader = document.createElement('h1');
   playAgainHeader.textContent = 'Play again?';
@@ -167,7 +179,8 @@ function askPlayAgain() {
   // Add an id for the play again screen.
   playAgainScreen.id = 'play-again-screen'; 
 
-  // Append the header and button to the play again screen object.
+  // Append the score, header, and button to the play again screen object.
+  playAgainScreen.appendChild(endGameScore);
   playAgainScreen.appendChild(playAgainHeader);
   playAgainScreen.appendChild(playAgainButton);
 
@@ -192,6 +205,9 @@ function resetGame() {
 
   let colors = shuffle(COLORS);
   createCards(colors);
+
+  score = 0;
+  updateScoreboard(score);
   playingGame = true;
 }
 
