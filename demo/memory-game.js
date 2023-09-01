@@ -3,16 +3,14 @@
 /** Memory game: find matching pairs of cards and flip both of them. */
 
 const FOUND_MATCH_WAIT_MSECS = 1000;
-const COLORS = [
-  "red", "blue", "green", "orange", "purple",
-  "red", "blue", "green", "orange", "purple",
-];
 
-let colors = shuffle(COLORS);
+let colors = [];
+//let colors = shuffle(unshuffledColors);
 let score = 0;
+let numCards = null;
 
 let playingGame = false;
-createCards(colors);
+//createCards(colors);
 addStartListener();
 
 
@@ -40,10 +38,42 @@ function addStartListener() {
 }
 
 function startGame() {
-  let startScreen = document.getElementById('start-screen');
-  startScreen.remove();
-  toggleOpacity();
-  playingGame = true;
+  numCards = document.getElementById('num-cards').value;
+  // Make sure numCards is even and positive.
+  if ((numCards % 2 === 0) && (numCards > 0)) {
+    let startScreen = document.getElementById('start-screen');
+    startScreen.remove();
+
+    colors = createColors(numCards);
+    colors = shuffle(colors);
+    createCards(colors);
+    setUpGrid(numCards);
+    toggleOpacity();
+    playingGame = true;
+  }
+}
+
+function createColors(numCards) {
+  let colors = [];
+  for (let i=0; i<numCards / 2; i++) {
+    let randomR = Math.random() * 255;
+    let randomG = Math.random() * 255;
+    let randomB = Math.random() * 255;
+    
+    let randomColor = 'rgb(' + randomR + ',' + randomG + ',' + randomB + ')';
+    // Append the color to the array twice to get pairs.
+    colors.push(randomColor);
+    colors.push(randomColor);
+  }
+  return colors;
+}
+
+function setUpGrid(numCards) {
+  let numRows = Math.floor(Math.sqrt(numCards));
+  //let numRows = Math.ceil(numCards / numCols);
+  let cardGrid = document.getElementById('card-grid');
+  cardGrid.style.gridTemplateRows = 'repeat(' + numRows + ', auto)';
+
 }
 
 /** Create card for every color in colors (each will appear twice)
@@ -83,7 +113,9 @@ function updateScoreboard(score) {
 function flipCard(card) {
   // ... you need to write this ...
   card.style.backgroundColor = card.classList[1];
+  console.log('hiiiii');
   card.classList.toggle('face-up');
+  card.classList.toggle('face-down');
   score++;
   updateScoreboard(score);
 }
@@ -94,6 +126,7 @@ function unFlipCard(card) {
   // ... you need to write this ...
   card.style.backgroundColor = "gray";
   card.classList.toggle("face-up");
+  card.classList.toggle('face-down');
   card.classList.remove("clicked"); // Reset clicked card classes.
 }
 
@@ -229,12 +262,14 @@ function resetGame() {
   deleteCards();
   deletePlayAgainScreen();
 
-  let colors = shuffle(COLORS);
+  colors = createColors(numCards);
+  colors = shuffle(colors);
   createCards(colors);
-
+  setUpGrid(numCards);
+  
+  playingGame = true;
   score = 0;
   updateScoreboard(score);
-  playingGame = true;
 }
 
 function toggleOpacity() {
