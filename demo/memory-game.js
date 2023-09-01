@@ -189,7 +189,7 @@ function handleCardClick(evt) {
 
 function displayFinalScore(playAgainScreen) {
   // Get lowest score.
-  let lowestScore = localStorage.getItem("lowestScore");
+  let lowestScore = localStorage.getItem("lowestScore-" + numCards);
   // If there's no lowest score recorded, set the lowest score to Infinity.
   if (!lowestScore) lowestScore = Infinity;
 
@@ -199,8 +199,8 @@ function displayFinalScore(playAgainScreen) {
 
   // If it's a new best score, tell the user.
   if (score < lowestScore) {
-    localStorage.setItem("lowestScore", score);
-    bestScoreMessage.textContent = 'New best score!';
+    localStorage.setItem("lowestScore-" + numCards, score);
+    bestScoreMessage.textContent = `New best score for ${numCards} cards!`;
   } else {
     bestScoreMessage.textContent = '';
   }
@@ -266,7 +266,7 @@ function resetGame() {
   colors = shuffle(colors);
   createCards(colors);
   setUpGrid(numCards);
-  
+
   playingGame = true;
   score = 0;
   updateScoreboard(score);
