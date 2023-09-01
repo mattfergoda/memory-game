@@ -16,8 +16,6 @@ createCards(colors);
 addStartListener();
 
 
-
-
 /** Shuffle array items in-place and return shuffled array. */
 
 function shuffle(items) {
@@ -156,17 +154,30 @@ function handleCardClick(evt) {
   }
 }
 
-function askPlayAgain() {
-  playingGame = false;
-  let docBody = document.getElementsByTagName("body")[0];
-
-  // Create a play again screen.
-  let playAgainScreen = document.createElement('div');
+function displayFinalScore(playAgainScreen) {
+  // Get lowest score.
+  let lowestScore = localStorage.getItem("lowestScore");
+  // If there's no lowest score recorded, set the lowest score to Infinity.
+  if (!lowestScore) lowestScore = Infinity;
 
   // Create the header showing the user's score.
   let endGameScore = document.createElement('h1');
+  let bestScoreMessage = document.createElement('h1');
+
+  // If it's a new best score, tell the user.
+  if (score < lowestScore) {
+    localStorage.setItem("lowestScore", score);
+    bestScoreMessage.textContent = 'New best score!';
+  } else {
+    bestScoreMessage.textContent = '';
+  }
   endGameScore.textContent = 'Your score: ' + score;
 
+  playAgainScreen.appendChild(bestScoreMessage);
+  playAgainScreen.appendChild(endGameScore);
+}
+
+function buildPlayAgainScreenComponents(playAgainScreen) {
   // Create the header asking the user if they want to play again.
   let playAgainHeader = document.createElement('h1');
   playAgainHeader.textContent = 'Play again?';
@@ -176,13 +187,21 @@ function askPlayAgain() {
   playAgainButton.textContent = "Let's do it!";
   playAgainButton.addEventListener('click', resetGame);
 
-  // Add an id for the play again screen.
-  playAgainScreen.id = 'play-again-screen'; 
-
-  // Append the score, header, and button to the play again screen object.
-  playAgainScreen.appendChild(endGameScore);
   playAgainScreen.appendChild(playAgainHeader);
   playAgainScreen.appendChild(playAgainButton);
+}
+
+function askPlayAgain() {
+  playingGame = false;
+  let docBody = document.getElementsByTagName("body")[0];
+
+  // Create a play again screen.
+  let playAgainScreen = document.createElement('div');
+  // Add an id for the play again screen.
+  playAgainScreen.id = 'play-again-screen'; 
+  
+  displayFinalScore(playAgainScreen)
+  buildPlayAgainScreenComponents(playAgainScreen)
 
   // Append the play again screen to the doc body.
   docBody.appendChild(playAgainScreen);
@@ -190,18 +209,25 @@ function askPlayAgain() {
   toggleOpacity();
 }
 
-function resetGame() {
-
+function deleteCards() {
   // This helped:
   // https://stackoverflow.com/questions/10842471/how-to-remove-all-elements-of-a-certain-class-from-the-dom
   let cards = document.getElementsByClassName('card');
   while(cards[0]) {
     cards[0].parentNode.removeChild(cards[0]);
   }
+}
 
+function deletePlayAgainScreen() {
   let playAgainScreen = document.getElementById('play-again-screen');
   playAgainScreen.remove();
   toggleOpacity();
+}
+
+function resetGame() {
+
+  deleteCards();
+  deletePlayAgainScreen();
 
   let colors = shuffle(COLORS);
   createCards(colors);

@@ -39,7 +39,7 @@
 #play-again-screen {
   text-align: center;
   width: 300px;
-  height: 200px;
+  height: auto;
   background-color: aquamarine;
   /* This helped with fixed positioning: https://stackoverflow.com/questions/2005954/center-a-positionfixed-element */
   position: fixed;
@@ -48,4 +48,8 @@
   left: 0;
   right: 0;
   z-index: 100;
+}
+
+#play-again-screen button {
+  margin: 3% 0;
 }
