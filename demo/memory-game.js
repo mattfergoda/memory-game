@@ -40,7 +40,7 @@ function addStartListener() {
 function startGame() {
   numCards = document.getElementById('num-cards').value;
   // Make sure numCards is even and positive.
-  if ((numCards % 2 === 0) && (numCards > 0)) {
+  if ((numCards % 2 === 0) && (numCards > 3)) {
     let startScreen = document.getElementById('start-screen');
     startScreen.remove();
 
@@ -115,7 +115,6 @@ function updateBestScore(){
 function flipCard(card) {
   // ... you need to write this ...
   card.style.backgroundColor = card.classList[1];
-  console.log('hiiiii');
   card.classList.toggle('face-up');
   card.classList.toggle('face-down');
   score++;
@@ -244,34 +243,8 @@ function askPlayAgain() {
   toggleOpacity();
 }
 
-function deleteCards() {
-  // This helped:
-  // https://stackoverflow.com/questions/10842471/how-to-remove-all-elements-of-a-certain-class-from-the-dom
-  let cards = document.getElementsByClassName('card');
-  while(cards[0]) {
-    cards[0].parentNode.removeChild(cards[0]);
-  }
-}
-
-function deletePlayAgainScreen() {
-  let playAgainScreen = document.getElementById('play-again-screen');
-  playAgainScreen.remove();
-  toggleOpacity();
-}
-
 function resetGame() {
-
-  deleteCards();
-  deletePlayAgainScreen();
-
-  colors = createColors(numCards);
-  colors = shuffle(colors);
-  createCards(colors);
-
-  playingGame = true;
-  score = 0;
-  updateScoreboard(score);
-  updateBestScore();
+ location.reload();
 }
 
 function toggleOpacity() {
