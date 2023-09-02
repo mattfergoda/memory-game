@@ -79,7 +79,6 @@ button {
 
 #card-grid {
   display: grid;
-  grid-template-columns: auto auto auto auto auto;
   place-items: center;
   justify-items: center;
   align-items: center;
