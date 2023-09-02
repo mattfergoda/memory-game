@@ -107,7 +107,7 @@ button {
 
 #play-again-screen {
   text-align: center;
-  width: 300px;
+  width: 350px;
   height: auto;
   background-color: aquamarine;
   /* This helped with fixed positioning: https://stackoverflow.com/questions/2005954/center-a-positionfixed-element */
