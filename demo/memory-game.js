@@ -47,6 +47,7 @@ function startGame() {
     colors = createColors(numCards);
     colors = shuffle(colors);
     createCards(colors);
+    createCardGrid(numCards);
     updateBestScore();
     toggleOpacity();
     playingGame = true;
@@ -66,6 +67,27 @@ function createColors(numCards) {
     colors.push(randomColor);
   }
   return colors;
+}
+
+function createCardGrid(numCards) {
+  let numCols = 5;
+  // After some trial and error, this seems to give the best-looking grids
+  // for a variable number of cards.
+
+  // If numCards is divisible by 5, keep that value of numCols.
+  // Otherwise, see if 3 or 4 columns will fit numCards evenly. If not, just
+  // use 5 columns and embrace the awkward fit.
+  if (numCards % numCols !== 0){
+    for (let i=3; i<5; i++) { 
+      if (numCards % i === 0) {
+        numCols = i;
+      };
+    }
+  }
+  
+  let cardGrid = document.getElementById('card-grid');
+  cardGrid.style.gridTemplateColumns = `repeat(${numCols},1fr)`;
+
 }
 
 /** Create card for every color in colors (each will appear twice)
