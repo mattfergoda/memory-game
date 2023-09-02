@@ -41,7 +41,7 @@
 
 #start-screen .title {
   font-size: 45px;
-  padding: 4% 0;
+  padding: 2% 0;
   margin: 0 0;
 }
 
@@ -112,7 +112,7 @@ button {
   background-color: aquamarine;
   /* This helped with fixed positioning: https://stackoverflow.com/questions/2005954/center-a-positionfixed-element */
   position: fixed;
-  margin: auto auto;
+  margin: 3% auto;
   top: 5%;
   left: 0;
   right: 0;
@@ -121,7 +121,11 @@ button {
   font-family: 'Noto Sans', sans-serif;
 }
 
+#play-again-message {
+  font-size: 40px;
+  margin: 2% auto;
+}
 #play-again-screen button {
-  margin: 3% 0;
+  margin: 5% 0;
   font-family: inherit;
 }
