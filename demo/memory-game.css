@@ -5,7 +5,14 @@
 
 .title {
   font-family: 'Rubik Iso', cursive;
-  font-size: 40px;
+}
+
+#game .title {
+  font-size: 60px;
+  background-color: aquamarine;
+  height: 100%;
+  margin: 0;
+  padding: 2% 0;
 }
 
 #start-screen {
@@ -28,6 +35,14 @@
 #start-screen h3 {
   font-family: 'Lobster', cursive;
   font-size: 30px;
+  margin-top: 2%;
+  margin-bottom: 0;
+}
+
+#start-screen .title {
+  font-size: 45px;
+  padding: 4% 0;
+  margin: 0 0;
 }
 
 button {
@@ -75,11 +90,20 @@ button {
 }
 
 .card {
-  background-color: gray;
+  background-color: lightgray;
   border: 1px solid rgba(0, 0, 0, 0.8);
   height: 125px;
   width: 100px;
   margin: 5%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.card-char {
+  font-family: 'Rubik Iso', cursive;
+  font-size: 55px;
+  margin: auto 0;
 }
 
 #play-again-screen {
@@ -94,8 +118,11 @@ button {
   left: 0;
   right: 0;
   z-index: 100;
+  box-shadow: 5px 5px 10px 2px rgba(0,0,0,.8);
+  font-family: 'Noto Sans', sans-serif;
 }
 
 #play-again-screen button {
   margin: 3% 0;
+  font-family: inherit;
 }

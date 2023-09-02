@@ -87,6 +87,11 @@ function createCards(colors) {
     card.classList.add('card');
     card.classList.add(color);
     card.classList.add('face-down');
+    
+    let mChar = document.createElement('p');
+    mChar.classList.add('card-char');
+    mChar.textContent = "MM";
+    card.appendChild(mChar);
     card.id = `card-${i}`; // For making sure user doesn't pick the same card.
     card.addEventListener('click', handleCardClick);
     
@@ -115,6 +120,7 @@ function updateBestScore(){
 function flipCard(card) {
   // ... you need to write this ...
   card.style.backgroundColor = card.classList[1];
+  card.childNodes[0].textContent = '';
   card.classList.toggle('face-up');
   card.classList.toggle('face-down');
   score++;
@@ -125,7 +131,8 @@ function flipCard(card) {
 
 function unFlipCard(card) {
   // ... you need to write this ...
-  card.style.backgroundColor = "gray";
+  card.style.backgroundColor = "lightgray";
+  card.childNodes[0].textContent = 'MM';
   card.classList.toggle("face-up");
   card.classList.toggle('face-down');
   card.classList.remove("clicked"); // Reset clicked card classes.
