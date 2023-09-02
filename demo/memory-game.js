@@ -40,7 +40,7 @@ function addStartListener() {
 function startGame() {
   numCards = document.getElementById('num-cards').value;
   // Make sure numCards is even and positive.
-  if ((numCards % 2 === 0) && (numCards > 3)) {
+  if ((numCards % 2 === 0) && (numCards > 3) && (numCards <= 100)) {
     let startScreen = document.getElementById('start-screen');
     startScreen.remove();
 
@@ -244,6 +244,8 @@ function buildPlayAgainScreenComponents(playAgainScreen) {
   // Create the header asking the user if they want to play again.
   let playAgainHeader = document.createElement('h1');
   playAgainHeader.textContent = 'Play again?';
+  playAgainHeader.classList.add('title');
+  playAgainHeader.id = 'play-again-message';
 
   // Create the button that the user can press to play again.
   let playAgainButton = document.createElement('button');
